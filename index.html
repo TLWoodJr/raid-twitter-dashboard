@@ -1,105 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Destiny 2 Raid Twitter Feeds</title>
+  <meta charset="UTF-8">
+  <title>Destiny 2 Raid Twitter Feeds - Lazy Load (Dynamic)</title>
   <style>
     body {
-      margin: 0;
       background-color: #0e0e0e;
       color: white;
       font-family: Arial, sans-serif;
+      padding: 10px;
+    }
+    #dash {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       justify-content: center;
-      padding: 10px;
     }
     .timeline-container {
       width: 400px;
       height: 600px;
       border: 1px solid #333;
       border-radius: 8px;
-      overflow: hidden;
       background-color: #121212;
+      position: relative;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    .load-btn {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: #1da1f2;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      z-index: 1;
+    }
+    .load-btn:hover {
+      background-color: #0d8ddb;
+    }
+    iframe {
+      border: none;
     }
   </style>
 </head>
 <body>
 
-  <!-- Twitter Widgets Script -->
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<h1 style="width: 100%; text-align: center;">Destiny 2 Raid Twitter Dashboard (Lazy Load)</h1>
 
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/luigistyle_">Tweets by luigistyle_</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/Mariomonkey123">Tweets by Mariomonkey123</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/Fuggleman">Tweets by Fuggleman</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/iSpecialHero">Tweets by iSpecialHero</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/Pocket923">Tweets by Pocket923</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/Moonshame_">Tweets by Moonshame_</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/Ham100000000">Tweets by Ham100000000</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/SaltagreppoD2">Tweets by SaltagreppoD2</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/OG123764">Tweets by OG123764</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/Pur3_Pineapples">Tweets by Pur3_Pineapples</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/TStorm106">Tweets by TStorm106</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/aTides_">Tweets by aTides_</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/All_The_Players">Tweets by All_The_Players</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/T1Khan_">Tweets by T1Khan_</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/T1Vendetta">Tweets by T1Vendetta</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/kneewoah">Tweets by kneewoah</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/TheSnazzzyRock">Tweets by TheSnazzzyRock</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/evanf1997_">Tweets by evanf1997_</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/Sweatcicle">Tweets by Sweatcicle</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/Tyraxe">Tweets by Tyraxe</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/A0TERRA">Tweets by A0TERRA</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/xPunz">Tweets by xPunz</a>
-  </div>
-  <div class="timeline-container">
-    <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/BoundlessD2">Tweets by BoundlessD2</a>
-  </div>
+<div id="dash"></div>
+
+<script>
+const twitterHandles = [
+  'luigistyle_','Mariomonkey123','Fuggleman','iSpecialHero','Pocket923',
+  'Moonshame_','Ham100000000','SaltagreppoD2','OG123764','Pur3_Pineapples',
+  'TStorm106','aTides_','All_The_Players','T1Khan_','T1Vendetta',
+  'kneewoah','TheSnazzzyRock','evanf1997_','Sweatcicle','Tyraxe',
+  'A0TERRA','xPunz','BoundlessD2'
+];
+
+const dash = document.getElementById('dash');
+
+twitterHandles.forEach(handle => {
+  const container = document.createElement('div');
+  container.className = 'timeline-container';
+  const button = document.createElement('button');
+  button.className = 'load-btn';
+  button.textContent = `Load @${handle}`;
+  button.onclick = () => loadTimeline(button, `https://twitter.com/${handle}`);
+  container.appendChild(button);
+  dash.appendChild(container);
+});
+
+function loadTimeline(button, twitterUrl) {
+  const container = button.parentElement;
+  button.remove(); // Remove the button after click
+  const anchor = document.createElement('a');
+  anchor.className = 'twitter-timeline';
+  anchor.setAttribute('data-theme', 'dark');
+  anchor.href = twitterUrl;
+  anchor.innerText = 'Loading...';
+  container.appendChild(anchor);
+
+  if (typeof twttr !== 'undefined' && twttr.widgets && twttr.widgets.load) {
+    twttr.widgets.load(container);
+  } else {
+    const script = document.createElement('script');
+    script.src = 'https://platform.twitter.com/widgets.js';
+    script.async = true;
+    container.appendChild(script);
+  }
+}
+</script>
 
 </body>
 </html>
